@@ -16,7 +16,8 @@ In this guide, we will explore how to configure Telegraf to send GPU monitoring 
 
 ## Step 2: Set Up the Telegraf Agent Inside the VM or VMSS
 
-In this example, I will use an Azure Standard_ND96asr_v4 VM with the Ubuntu-HPC 2204 image to configure the environment for both VM and VMSS. The Ubuntu-HPC 2204 image comes pre-installed with NVIDIA GPU drivers and CUDA. If you choose to use a different image, make sure to install the necessary GPU drivers and the CUDA toolkit.
+### Linux
+I will use an Azure Standard_ND96asr_v4 VM with the Ubuntu-HPC 2204 image to configure the environment for both VM and VMSS. The Ubuntu-HPC 2204 image comes pre-installed with NVIDIA GPU drivers and CUDA. If you choose to use a different image, make sure to install the necessary GPU drivers and the CUDA toolkit.
 
 Download and execute the `gpumon-setup.sh` script to install the Telegraf agent on Ubuntu 22.04. This script will also configure the NVIDIA SMI input plugin and set up the Telegraf configuration to send data to Azure Monitor.
 
@@ -33,6 +34,26 @@ Test the Telegraf configuration by executing the following command:
 ```bash
 sudo telegraf --config=/etc/telegraf/telegraf.conf --test
 ```
+### Windows
+
+To set up Telegraf for GPU monitoring on Windows, follow these steps:
+
+1. **Open PowerShell as Administrator**:
+   - Search for "PowerShell" in the Start menu.
+   - Right-click on **Windows PowerShell** and select **Run as administrator**.
+
+2. **Execute the following commands**:
+   Copy and paste the following commands into the PowerShell window to download and run the Telegraf setup script for GPU monitoring.
+
+   ```powershell
+   # Set the URL for the PowerShell script
+   $scriptUrl = "https://raw.githubusercontent.com/vinil-v/gpu-monitoring/refs/heads/main/scripts/gpumon-win.ps1"
+
+   # Download and execute the script
+   Invoke-WebRequest -Uri $scriptUrl -UseBasicParsing | Invoke-Expression
+   ```
+
+This script will automatically download, configure, and install Telegraf with GPU monitoring on your Windows machine.
 
 ## Step 3: Creating Dashboards in Azure Monitor to Check NVIDIA GPU Usage
 
